@@ -27,8 +27,7 @@ describe('StoreService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [...TypeOrmTestingConfig()],
-      providers: [
-        StoreService],
+      providers: [StoreService],
     }).compile();
 
     service = module.get<StoreService>(StoreService);
