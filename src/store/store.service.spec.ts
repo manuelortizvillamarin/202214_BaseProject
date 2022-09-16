@@ -78,4 +78,37 @@ describe('StoreService', () => {
     expect(storedStore.address).toEqual(newStore.address)
   });
 
+  it('update should modify a store', async () => {
+    const store: StoreEntity = storesList[0];
+    store.name = "New name";
+    store.address = "New address";
+    const updatedStore: StoreEntity = await service.update(store.id, store);
+    expect(updatedStore).not.toBeNull();
+    const storedStore: StoreEntity = await repository.findOne({ where: { id: store.id } })
+    expect(storedStore).not.toBeNull();
+    expect(storedStore.name).toEqual(store.name)
+    expect(storedStore.address).toEqual(store.address)
+  });
+
+  it('update should throw an exception for an invalid store', async () => {
+    let store: StoreEntity = storesList[0];
+    store = {
+      ...store, name: "New name", address: "New address"
+    }
+    await expect(() => service.update("0", store)).rejects.toHaveProperty("message", "The store with the given id was not found")
+  });
+
+  it('delete should remove a store', async () => {
+    const store: StoreEntity = storesList[0];
+    await service.delete(store.id);
+    const deletedStore: StoreEntity = await repository.findOne({ where: { id: store.id } })
+    expect(deletedStore).toBeNull();
+  });
+
+  it('delete should throw an exception for an invalid store', async () => {
+    const store: StoreEntity = storesList[0];
+    await service.delete(store.id);
+    await expect(() => service.delete("0")).rejects.toHaveProperty("message", "The store with the given id was not found")
+  });
+
 });
