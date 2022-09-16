@@ -6,6 +6,7 @@ import { ProductEntity } from './product/product.entity';
 import { ProductModule } from './product/product.module';
 import { StoreEntity } from './store/store.entity';
 import { StoreModule } from './store/store.module';
+import { ProductStoreModule } from './product-store/product-store.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { StoreModule } from './store/store.module';
       dropSchema: true,
       synchronize: true,
       keepConnectionAlive: true
-    })
+    }),
+    ProductStoreModule
   ],
   controllers: [AppController],
   providers: [AppService],
