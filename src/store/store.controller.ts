@@ -5,7 +5,7 @@ import { StoreDto } from './store.dto';
 import { StoreEntity } from './store.entity';
 import { StoreService } from './store.service';
 
-@Controller('store')
+@Controller('stores')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class StoreController {
 
